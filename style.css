@@ -1,0 +1,52 @@
+#img1{
+      width: 600px;
+      height: 150px;
+}
+#id1{
+	margin-left: 20px; 	
+}
+#id2{
+	font-size: 35px;
+	color: floralwhite;
+	font-family: Hadassah Friedlaender;
+}
+
+#id3{
+	width: 550px;
+	height: 400px;
+      color: floralwhite; 
+	text-align: center;
+	
+}
+#id4{
+	margin-left: 20px; 	
+}
+
+	
+#id5{
+      font-family: Georgia;
+}
+
+#id6{
+      color: floralwhite;
+}
+
+#id7{
+      color: floralwhite;
+}
+
+#hov1:hover{
+	width: 430px;
+	height: 300px;
+}
+
+.footer{
+	display: flex;
+	margin-left: 20px; 
+}
+
+#id7{
+      color: floralwhite;
+}
+
+
