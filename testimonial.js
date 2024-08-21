@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameInput = document.getElementById('name');
     const messageInput = document.getElementById('message');
     const imageInput = document.getElementById('image');
-   
-    // exisiting testimonials//
-    const testimonials = [
+
+    // Existing testimonials
+    const initialTestimonials = [
         {
             name: 'Dwayne Johnson',
             message: 'Just ticked off a major bucket list item: an incredible trip to the Maldives! 🌴🏝️ The crystal-clear waters, white sands, and vibrant marine life were beyond amazing. Whether diving or relaxing in an overwater villa, every moment was pure magic. The sunsets were breathtaking and the experience was soul-recharging. If you’ve got the Maldives on your list, go for it. It’s a dream come true!',
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: 'Roger Federer',
             message: 'I’m thrilled to share that I’ve just ticked off a bucket list item: soaring in a hot air balloon over Turkey’s stunning landscapes! 🎈🇹🇷 The views of Cappadocia’s unique rock formations were absolutely breathtaking. The serenity and panoramic vistas from above made the experience truly unforgettable. Turkey’s beauty and history made this adventure even more special. Highly recommend adding this to your bucket list!',
-            image: 'https://media.gq-magazine.co.uk/photos/5d138f3ed7a701d79bbb9fc6/16:9/w_2560%2Cc_limit/roger-federer-01-gq-29may18_getty_b.jpg'
+            image: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSH7d_3Odnf3etJ6ptkrInFOhEQ_nDu3bInd0kPxMGRx17U4Him'
         },
         {
             name: 'Emma Watson',
@@ -25,8 +25,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    // Function to render testimonials
+    // Load existing testimonials from localStorage 
+    function loadTestimonials() {
+        const savedTestimonials = JSON.parse(localStorage.getItem('testimonials'));
+        return savedTestimonials || initialTestimonials;
+    }
+
+    // Save testimonials to localStorage
+    function saveTestimonials(testimonials) {
+        localStorage.setItem('testimonials', JSON.stringify(testimonials));
+    }
+
+    // show testimonials
     function renderTestimonials() {
+        const testimonials = loadTestimonials();
         testimonialsList.innerHTML = testimonials.map(testimonial => `
             <div class="testimonial-item">
                 <img src="${testimonial.image}" alt="Testimonial Image">
@@ -38,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    // Render existing testimonials on page load
+    // show existing testimonials on page load
     renderTestimonials();
 
     // Handle form submission
@@ -52,7 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (name && message) {
             const imageUrl = imageFile ? URL.createObjectURL(imageFile) : 'https://via.placeholder.com/100';
 
-            testimonials.push({ name, message, image: imageUrl });
+            const newTestimonial = { name, message, image: imageUrl };
+            const testimonials = loadTestimonials();
+            testimonials.push(newTestimonial);
+            saveTestimonials(testimonials);
 
             nameInput.value = '';
             messageInput.value = '';
